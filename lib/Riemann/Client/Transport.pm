@@ -15,13 +15,10 @@ sub send {
 sub _build_socket {
     my $self  = shift;
 
-    my @elems = split /::/, __PACKAGE__;
-    my $proto = $elems[-1];
-
     my $sock = IO::Socket::INET->new(
         PeerAddr => $self->host,
         PeerPort => $self->port,
-        Proto    => shift,
+        Proto    => $self->proto,
     ) or die $!;
 
     return $sock;
