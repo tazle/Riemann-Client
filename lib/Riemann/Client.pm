@@ -133,42 +133,51 @@ Accepts a string and returns a message.
 
 This is the specification of the messages in L<Google::ProtocolBuffers> format:
 
-    message State {
-      optional int64 time = 1;
-      optional string state = 2;
-      optional string service = 3;
-      optional string host = 4;
-      optional string description = 5;
-      optional bool once = 6;
-      repeated string tags = 7;
-      optional float ttl = 8;
-    }
+option java_package = "com.aphyr.riemann";
+option java_outer_classname = "Proto";
 
-    message Event {
-      optional int64 time = 1;
-      optional string state = 2;
-      optional string service = 3;
-      optional string host = 4;
-      optional string description = 5;
-      repeated string tags = 7;
-      optional float ttl = 8;
+message State {
+  optional int64 time = 1;
+  optional string state = 2;
+  optional string service = 3;
+  optional string host = 4;
+  optional string description = 5;
+  optional bool once = 6;
+  repeated string tags = 7;
+  optional float ttl = 8;
+}
 
-      optional sint64 metric_sint64 = 13;
-      optional double metric_d = 14;
-      optional float metric_f = 15;
-    }
+message Event {
+  optional int64 time = 1;
+  optional string state = 2;
+  optional string service = 3;
+  optional string host = 4;
+  optional string description = 5;
+  repeated string tags = 7;
+  optional float ttl = 8;
+  repeated Attribute attributes = 9;
 
-    message Query {
-      optional string string = 1;
-    }
+  optional sint64 metric_sint64 = 13;
+  optional double metric_d = 14;
+  optional float metric_f = 15;
+}
 
-    message Msg {
-      optional bool ok = 2;
-      optional string error = 3;
-      repeated State states = 4;
-      optional Query query = 5;
-      repeated Event events = 6;
-    }
+message Query {
+  optional string string = 1;
+}
+
+message Msg {
+  optional bool ok = 2;
+  optional string error = 3;
+  repeated State states = 4;
+  optional Query query = 5;
+  repeated Event events = 6;
+}
+
+message Attribute {
+  required string key = 1;
+  optional string value = 2;
+}
 
 =head1 SEE ALSO
 
