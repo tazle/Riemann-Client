@@ -7,6 +7,8 @@ use Riemann::Client::Protocol;
 
 extends 'Riemann::Client::Transport';
 
+has proto  => (is => 'ro', required => 1, default => sub { 'UDP' });
+
 use constant MAX_DTGRM_SIZE => 16384;
 
 sub send {
